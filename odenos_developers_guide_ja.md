@@ -91,18 +91,17 @@ ODENOSを拡張して新たなLogicComponent,Driverを実装する人向けのガイドラインである.
   作成ソフトウェアは、odenos/lib配下のファイルをimportし使用する。(classpathに指定)
   ※odenosはetc(configファイル)以外は基本的に変更することはない。
 
-  |-- apps/
-      +-- Project-A/
-           +--- run_splict  実行スプリクト.コンポーネント生成/connectionなど
-           +--- src/main/java/xxx/proj-a/
-           |                       + component/
-           |                          +--- ExtLinkLayerlizer.java
-           |                          +--- ExtAggregator.java
-           |                          +--- driver/
-           |                                +------ XXXXDriver.java
-           |                                +------ YYYYDriver.java
-           +--- target/classes  -- classファイル格納
-
+	|-- apps/
+            +-- Project-A/
+	           +--- run_splict  実行スプリクト.コンポーネント生成/connectionなど
+        	      +--- src/main/java/xxx/proj-a/
+		             |                       + component/
+			     |                          +--- ExtLinkLayerlizer.java
+			     |                          +--- ExtAggregator.java
+			     |                          +--- driver/
+			     |                                +------ XXXXDriver.java
+			     |                                +------ YYYYDriver.java
+			     +--- target/classes  -- classファイル格納
 
 ----
 #### <a name="baseclass">BaseClassの決定</a>
@@ -255,9 +254,9 @@ delEntryFlow                 | Ｆｌｏｗの関連付けを削除                   | onFl
 上記メソッドをオーバライドしないと、conversionTableで記載した関連性でオブジェクトの更新をlogic内で行う。
 Nodeの追加、更新、削除がlogicのConversion()によって行われる。
 
- * ①onNodeAdded : イベント処理を全て記述する場合は本メソッドをoverrideする。    
- * ②onNodeAddedPre処理にてフィルタリングが可能（伝搬したくないイベントをこの処理で落とす）本メソッドをoverrideして"false"を返すと以降の処理を行わない。
- * ③onNodeAddedPostにて後処理を実施。Conversionのrequestに対するResponseがパラメータrespListに格納されている。Responseをチェックしてエラー処理などを行う。
+ 1. onNodeAdded : イベント処理を全て記述する場合は本メソッドをoverrideする。
+ 2. onNodeAddedPre処理にてフィルタリングが可能（伝搬したくないイベントをこの処理で落とす）本メソッドをoverrideして"false"を返すと以降の処理を行わない。
+ 3. onNodeAddedPostにて後処理を実施。Conversionのrequestに対するResponseがパラメータrespListに格納されている。Responseをチェックしてエラー処理などを行う。
 
   
 Tips:
@@ -273,12 +272,12 @@ Conversion後に処理を行いたい場合は、onNodeAddedPostをオーバライドすること。
 
    |  add method    |  upadate         | delete 
 ---|----------------|------------------|------------------- 
-① | onNodeAdded    | onNodeUpdate     | onNodeDelete
-② | onNodeAddedPre | onNodeUpdatePre  | onNodeDeletePre
-③ | onNodeAddedPost| onNodeUpdatePost | onNodeDeletePost
+1. | onNodeAdded    | onNodeUpdate     | onNodeDelete
+2. | onNodeAddedPre | onNodeUpdatePre  | onNodeDeletePre
+3. | onNodeAddedPost| onNodeUpdatePost | onNodeDeletePost
 
-*Port,Link,Flowも相当のメソッドあり
-*onInPacket,onOutPacketはaddedのみ
+ * Port,Link,Flowも相当のメソッドあり
+ * onInPacket,onOutPacketはaddedのみ
 
 ----
 
@@ -290,25 +289,25 @@ Conponent/Driverに独自のREST IFを追加する場合の実装方法です。
 
 <必要な処理>    
 
- * ①クラス変数として 下記parserを定義  
+ 1. クラス変数として 下記parserを定義  
    protected final RequestParser<IActionCallback> parser;    
 
- * ②コンストラクタにてparserを初期化    
+ 2. コンストラクタにてparserを初期化    
         parser = createParser();   
     
- * ③createParserメソッドにRequest処理を記載する。    
-　　１．２．３．について必要分記載する。
+ 3. createParserメソッドにRequest処理を記載する。    
+　　A. B. C. について必要分記載する。
 
         private RequestParser<IActionCallback> createParser() {
           return new RequestParser<IActionCallback>() { {
-            addRule(Method.GET, 　<---１． Actinの指定(GET,POST,PUT,DELETE)
-                    "fdb",        <---２． pathの指定 
+            addRule(Method.GET, 　<---A. Actinの指定(GET,POST,PUT,DELETE)
+                    "fdb",        <---B. pathの指定 
                     new IActionCallback() {    
                     @Override    
                     public Response process(
                       final RequestParser<IActionCallback>.
                       ParsedRequest parsed) throws Exception {
-                        return getFdb(); <---３． 実処理を行うメソッドの記述
+                        return getFdb(); <---C. 実処理を行うメソッドの記述
                       }
                    });
             }};
@@ -316,8 +315,8 @@ Conponent/Driverに独自のREST IFを追加する場合の実装方法です。
     
 
 
- * ④ onRequestメソッドをoverrideする。    
-　　③のメソッドをコールする
+ 4. onRequestメソッドをoverrideする。    
+　　3 のメソッドをコールする
 
 ----
 
