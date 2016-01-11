@@ -71,6 +71,7 @@ ODENOSを拡張して新たなLogicComponent,Driverを実装する人向けのガイドラインである.
 
  * 設定ファイル
   ./etc/odenos.conf に起動するコンポーネントマネージャを記載してください。
+
  ---------------------------------
   		    [odenos.confの初期情報]
 		    PROCESS romgr1,java,apps/java/sample_components/target/classes
