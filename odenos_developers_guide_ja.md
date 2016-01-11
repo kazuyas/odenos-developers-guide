@@ -34,30 +34,30 @@ ODENOSを拡張して新たなLogicComponent,Driverを実装する人向けのガイドラインである.
   ディレクトリ構成を下記のように変更
  (主要なディレクトリ、ファイルのみ記載)
  ---------------------------------
- odenos/
-  |
-  +-- odenos -- 起動スプリクト
-  +-- run-unittests.sh -- testスプリクト
-  |
-  |-- apps/
-  |   +-- example/      --- sampleアプリ群
-  |   +-- java/         --- java componentを作成する場合のsample(dummy_driver)
-  |   +-- python/       --- python componentを作成する場合のsample(dummy_driver)
-  |   +-- rest_sample/  --- rest実行時のサンプルスプリクト
-  |
-  |-- doc/  -- apiドキュメント
-  |
-  |-- etc/  -- ODENOS の config
-  |    + -- odenos.conf --  起動プロセスの設定
-  |                         (app配下のディレクトリを指定することで作成したcomponentを登録可能)
-  |    + -- log_*.conf　--  log出力先(default : ./var/log)
-  |
-  |-- lib/   -- ODENOSのライブラリ(jar,python,ruby) <-buildファイルの格納
-  |
-  |-- src/   -- ODENOSのソース(java,python,ruby)
-  |
-  |-- var/
-        +-- log  -- log格納
+	odenos/
+	 |
+	 +-- odenos -- 起動スプリクト
+	 +-- run-unittests.sh -- testスプリクト
+	 |
+	 |-- apps/
+	 |   +-- example/      --- sampleアプリ群
+	 |   +-- java/         --- java componentを作成する場合のsample(dummy_driver)
+	 |   +-- python/       --- python componentを作成する場合のsample(dummy_driver)
+	 |   +-- rest_sample/  --- rest実行時のサンプルスプリクト
+	 |
+	 |-- doc/  -- apiドキュメント
+	 |
+	 |-- etc/  -- ODENOS の config
+	 |    + -- odenos.conf --  起動プロセスの設定
+	 |                         (app配下のディレクトリを指定することで作成したcomponentを登録可能)
+	 |    + -- log_*.conf　--  log出力先(default : ./var/log)
+	 |
+	 |-- lib/   -- ODENOSのライブラリ(jar,python,ruby) <-buildファイルの格納
+	 |
+	 |-- src/   -- ODENOSのソース(java,python,ruby)
+	 |
+	 |-- var/
+	       +-- log  -- log格納
 
  ---------------------------------
 
@@ -94,14 +94,14 @@ ODENOSを拡張して新たなLogicComponent,Driverを実装する人向けのガイドラインである.
 	|-- apps/
             +-- Project-A/
 	           +--- run_splict  実行スプリクト.コンポーネント生成/connectionなど
-        	      +--- src/main/java/xxx/proj-a/
-		             |                       + component/
-			     |                          +--- ExtLinkLayerlizer.java
-			     |                          +--- ExtAggregator.java
-			     |                          +--- driver/
-			     |                                +------ XXXXDriver.java
-			     |                                +------ YYYYDriver.java
-			     +--- target/classes  -- classファイル格納
+		   	+--- src/main/java/xxx/proj-a/
+		        |                       + component/
+			|                          +--- ExtLinkLayerlizer.java
+			|                          +--- ExtAggregator.java
+			|                          +--- driver/
+			|                                +------ XXXXDriver.java
+			|                                +------ YYYYDriver.java
+			+--- target/classes  -- classファイル格納
 
 ----
 #### <a name="baseclass">BaseClassの決定</a>
