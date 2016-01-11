@@ -65,24 +65,23 @@ ODENOSを拡張して新たなLogicComponent,Driverを実装する人向けのガイドラインである.
   mvnコマンドにてbuild(doc/QUICKSTART.md参照)
 
  * 起動スプリクト
-  ---------------------------------
-  ./odenos start で起動
-  ./odenos stop で終了
-  ./odenos restart で再起動になります。
+  - ./odenos start で起動
+  - ./odenos stop で終了
+  - ./odenos restart で再起動になります。
 
+ * 設定ファイル
   ./etc/odenos.conf に起動するコンポーネントマネージャを記載してください。
+ ---------------------------------
+  		    [odenos.confの初期情報]
+		    PROCESS romgr1,java,apps/java/sample_components/target/classes
+		    PROCESS romgr2,python,apps/python/sample_components
 
-  [odenos.confの初期情報]
-  PROCESS romgr1,java,apps/java/sample_components/target/classes
-  PROCESS romgr2,python,apps/python/sample_components
-
-  [設定内容]
-  PROESS %1, %2, %3
-  %1: romgr1 -> compoment_managerの名前(任意に設定可能)
-  %2: java -> 言語を指定 java or python (Ruby未対応)
-  %3: apps/java/sample_components/target/classes -> 独自作成したconponentの格納先
-  ---------------------------------
-
+		    [設定内容]
+		    PROCESS %1, %2, %3
+		    %1: compoment_managerの名前(任意に設定可能)
+		    %2: 言語を指定 java or python (Ruby未対応)
+		    %3: 独自作成したconponentの格納先
+ ---------------------------------
 
 ----
 #### <a name="packege">apps開発時のディレクトリ構成例</a>
