@@ -92,16 +92,16 @@ ODENOSを拡張して新たなLogicComponent,Driverを実装する人向けのガイドラインである.
   ※odenosはetc(configファイル)以外は基本的に変更することはない。
 
 	|-- apps/
-            +-- Project-A/
-	           +--- run_splict  実行スプリクト.コンポーネント生成/connectionなど
-		   	+--- src/main/java/xxx/proj-a/
-		        |                       + component/
-			|                          +--- ExtLinkLayerlizer.java
-			|                          +--- ExtAggregator.java
-			|                          +--- driver/
-			|                                +------ XXXXDriver.java
-			|                                +------ YYYYDriver.java
-			+--- target/classes  -- classファイル格納
+	    +-- Project-A/
+	    	+--- run_splict  実行スプリクト.コンポーネント生成/connectionなど
+		     +--- src/main/java/xxx/proj-a/
+		     |                       + component/
+		     |                          +--- ExtLinkLayerlizer.java
+		     |                          +--- ExtAggregator.java
+		     |                          +--- driver/
+		     |                                +------ XXXXDriver.java
+		     |                                +------ YYYYDriver.java
+		     +--- target/classes  -- classファイル格納
 
 ----
 #### <a name="baseclass">BaseClassの決定</a>
