@@ -1,17 +1,15 @@
-### LogicComponent/Driver作成ガイドライン
+### Development Guideline for LogicComponent/Driver of ODENOS
 
 ----
-#### overview
+#### Overview
 
-本ドキュメントはODENOSの基本的な動作について理解しており、
-ODENOSを拡張して新たなLogicComponent,Driverを実装する人向けのガイドラインである.    
+This document is a guideline for developers who will develop LogicComponents and Drivers by extending ODENOS.
 
-基本的な動作は、doc/QUICKSTART.mdを参照。
+If you will understand a basis of ODENS, please see doc/QUICKSTART.md.
 
-本ドキュメントでは、component/Driver実装にて必要となるメソッドとその実装方針を示す.
-具体的な実装は"Aggregator","DummyDriver","LearningSwitch"の同メソッドを参照すること.    
+This document shows methods and policies for developing Components and Drivers of ODENOS. Please refer source codes of *Aggregator*, *DummyDriver* and *LearningSwitch*. 
 
-言語はjavaを例に説明する.    
+This document explains only development by Java, although ODENOS supports both Java and Python.
 
 ----
 #### Index
