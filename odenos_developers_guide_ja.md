@@ -179,7 +179,7 @@ applyEventSubscription  | 登録したイベントを実際にeventManagerに反映する(~EventS
 
 * Topology
 
-          |  add method      |  upadate     | delete 
+          |  add method      |  update      | delete 
 ----------|------------------|--------------|------------- 
 Node      | onNodeAdded      | onNodeUpdate | onNodeDelete
 Port      | onPortAdded      | onPortUpdate | onPortDelete
@@ -270,7 +270,7 @@ Conversion後に処理を行いたい場合は、onNodeAddedPostをオーバライドすること。
 
 * Topology
 
-   |  add method    |  upadate         | delete 
+-  |  add method    |  update          | delete 
 ---|----------------|------------------|------------------- 
 1  | onNodeAdded    | onNodeUpdate     | onNodeDelete
 2  | onNodeAddedPre | onNodeUpdatePre  | onNodeDeletePre
