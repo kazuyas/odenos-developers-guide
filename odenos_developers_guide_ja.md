@@ -243,10 +243,10 @@ delEntryFlow                 | Ｆｌｏｗの関連付けを削除                   | onFl
   
     Event発生(NodeChanged イベント発行) [Network]
      +--> [Subscribe]している[LogicComponent]    
-               +---> onNodeAdded   <--------------------------- ①overrideしてイベント処理を記述
-                       |onNodeAddedPre  | <--- 前処理 <--- ②overrideしてイベント処理を記述
+               +---> onNodeAdded   <--------------------------- 1. overrideしてイベント処理を記述
+                       |onNodeAddedPre  | <--- 前処理 <--- 2. overrideしてイベント処理を記述
                        | Conversion     | <--- ConversionTableに従って動作(class Logic内で処理)
-                       |onNodeAddedPost | <--- 後処理 <--- ③overrideしてイベント処理を記述
+                       |onNodeAddedPost | <--- 後処理 <--- 3. overrideしてイベント処理を記述
   
 
 ----
@@ -272,9 +272,9 @@ Conversion後に処理を行いたい場合は、onNodeAddedPostをオーバライドすること。
 
    |  add method    |  upadate         | delete 
 ---|----------------|------------------|------------------- 
-1. | onNodeAdded    | onNodeUpdate     | onNodeDelete
-2. | onNodeAddedPre | onNodeUpdatePre  | onNodeDeletePre
-3. | onNodeAddedPost| onNodeUpdatePost | onNodeDeletePost
+1  | onNodeAdded    | onNodeUpdate     | onNodeDelete
+2  | onNodeAddedPre | onNodeUpdatePre  | onNodeDeletePre
+3  | onNodeAddedPost| onNodeUpdatePost | onNodeDeletePost
 
  * Port,Link,Flowも相当のメソッドあり
  * onInPacket,onOutPacketはaddedのみ
