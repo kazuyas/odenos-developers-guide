@@ -45,7 +45,6 @@ This document explains only development by Java, although ODENOS supports both J
 	 |
 	 |-- etc/  -- ODENOS configurations
 	 |    + -- odenos.conf --  odenos configuration
-	 |                         (app配下のディレクトリを指定することで作成したcomponentを登録可能)
 	 |    + -- log_*.conf　--  log configuration (default : ./var/log)
 	 |
 	 |-- lib/   -- ODENOS libraries (jar,python,ruby) <-buildファイルの格納
@@ -70,18 +69,20 @@ This document explains only development by Java, although ODENOS supports both J
  
   Specified component managers
 
- ---------------------------------
-  		    [odenos.confの初期情報]
+[odenos.confの初期情報]
+---------------------------------
 		    PROCESS romgr1,java,apps/java/sample_components/target/classes
 		    PROCESS romgr2,python,apps/python/sample_components
-
-		    [設定内容]
+---------------------------------
+   
+ [設定内容]
+---------------------------------
 		    PROCESS %1, %2, %3
 		    %1: compoment_managerの名前(任意に設定可能)
 		    %2: 言語を指定 java or python (Ruby未対応)
 		    %3: 独自作成したconponentの格納先
- ---------------------------------
-
+---------------------------------
+ 
 ----
 #### <a name="packege">apps開発時のディレクトリ構成例</a>
 
