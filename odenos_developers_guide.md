@@ -14,7 +14,7 @@ This document explains only development by Java, although ODENOS supports both J
 ----
 #### Index
     
- * 1. [project構成](#project)
+ * 1. [Directories](#directories)
  * 2. [apps開発時のディレクトリ構成例](#packege)
  * 3. [BaseClassの決定](#baseclass)
  * 4. [connection処理](#connection)
@@ -27,10 +27,8 @@ This document explains only development by Java, although ODENOS supports both J
      
 
 ----
-#### <a name="project">project構成</a>
+#### <a name="directories">Directories</a>
 
-  ディレクトリ構成を下記のように変更
- (主要なディレクトリ、ファイルのみ記載)
  ---------------------------------
 	odenos/
 	 |
@@ -46,7 +44,7 @@ This document explains only development by Java, although ODENOS supports both J
 	 |-- doc/  -- api documents
 	 |
 	 |-- etc/  -- ODENOS configurations
-	 |    + -- odenos.conf --  起動プロセスの設定
+	 |    + -- odenos.conf --  odenos configuration
 	 |                         (app配下のディレクトリを指定することで作成したcomponentを登録可能)
 	 |    + -- log_*.conf　--  log configuration (default : ./var/log)
 	 |
@@ -63,14 +61,14 @@ This document explains only development by Java, although ODENOS supports both J
  
   Use mvn for building ODENOS (Please refer doc/QUICKSTART.md)
 
- * start script
+ * start script (./odenos)
   - ./odenos start
   - ./odenos stop
   - ./odenos restart
 
- * configuration file
+ * configuration file (./etc/odenos.conf)
  
-  ./etc/odenos.conf に起動するコンポーネントマネージャを記載してください。
+  Specified component managers
 
  ---------------------------------
   		    [odenos.confの初期情報]
