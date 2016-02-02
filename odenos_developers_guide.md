@@ -60,6 +60,7 @@ This document explains only development by Java, although ODENOS supports both J
  ---------------------------------
 
  * build
+ 
   Use mvn for building ODENOS (Please refer doc/QUICKSTART.md)
 
  * start script
@@ -68,6 +69,7 @@ This document explains only development by Java, although ODENOS supports both J
   - ./odenos restart
 
  * configuration file
+ 
   ./etc/odenos.conf に起動するコンポーネントマネージャを記載してください。
 
  ---------------------------------
