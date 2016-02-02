@@ -14,84 +14,84 @@ This document explains only development by Java, although ODENOS supports both J
 ----
 #### Index
     
- * 1. [project\¬](#project)
- * 2. [appsŠJ”­‚ÌƒfƒBƒŒƒNƒgƒŠ\¬—á](#packege)
- * 3. [BaseClass‚ÌŒˆ’è](#baseclass)
- * 4. [connectionˆ—](#connection)
+ * 1. [projectæ§‹æˆ](#project)
+ * 2. [appsé–‹ç™ºæ™‚ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªæ§‹æˆä¾‹](#packege)
+ * 3. [BaseClassã®æ±ºå®š](#baseclass)
+ * 4. [connectionå‡¦ç†](#connection)
  * 5. [Event subscription](#subscription)
  * 6. [Event method override](#event)
- * 7. conversion‹@”\‚ÌŠˆ—p
- * 7.1. [conversionTable‚Ìİ’è](#conversionTable)
+ * 7. conversionæ©Ÿèƒ½ã®æ´»ç”¨
+ * 7.1. [conversionTableã®è¨­å®š](#conversionTable)
  * 7.2. [Event method override](#Event2)
- * 8. Request Eventì¬
+ * 8. Request Eventä½œæˆ
      
 
 ----
-#### <a name="project">project\¬</a>
+#### <a name="project">projectæ§‹æˆ</a>
 
-  ƒfƒBƒŒƒNƒgƒŠ\¬‚ğ‰º‹L‚Ì‚æ‚¤‚É•ÏX
- (å—v‚ÈƒfƒBƒŒƒNƒgƒŠAƒtƒ@ƒCƒ‹‚Ì‚İ‹LÚ)
+  ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªæ§‹æˆã‚’ä¸‹è¨˜ã®ã‚ˆã†ã«å¤‰æ›´
+ (ä¸»è¦ãªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã€ãƒ•ã‚¡ã‚¤ãƒ«ã®ã¿è¨˜è¼‰)
  ---------------------------------
 	odenos/
 	 |
-	 +-- odenos -- ‹N“®ƒXƒvƒŠƒNƒg
-	 +-- run-unittests.sh -- testƒXƒvƒŠƒNƒg
+	 +-- odenos -- start script
+	 +-- run-unittests.sh -- test script
 	 |
 	 |-- apps/
-	 |   +-- example/      --- sampleƒAƒvƒŠŒQ
-	 |   +-- java/         --- java component‚ğì¬‚·‚éê‡‚Ìsample(dummy_driver)
-	 |   +-- python/       --- python component‚ğì¬‚·‚éê‡‚Ìsample(dummy_driver)
-	 |   +-- rest_sample/  --- restÀs‚ÌƒTƒ“ƒvƒ‹ƒXƒvƒŠƒNƒg
+	 |   +-- example/      --- sample applications
+	 |   +-- java/         --- sample for developing java component(dummy_driver)
+	 |   +-- python/       --- sample for developing python component(dummy_driver)
+	 |   +-- rest_sample/  --- rest sample scripts
 	 |
-	 |-- doc/  -- apiƒhƒLƒ…ƒƒ“ƒg
+	 |-- doc/  -- api documents
 	 |
-	 |-- etc/  -- ODENOS ‚Ì config
-	 |    + -- odenos.conf --  ‹N“®ƒvƒƒZƒX‚Ìİ’è
-	 |                         (app”z‰º‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğw’è‚·‚é‚±‚Æ‚Åì¬‚µ‚½component‚ğ“o˜^‰Â”\)
-	 |    + -- log_*.conf@--  logo—Íæ(default : ./var/log)
+	 |-- etc/  -- ODENOS configurations
+	 |    + -- odenos.conf --  èµ·å‹•ãƒ—ãƒ­ã‚»ã‚¹ã®è¨­å®š
+	 |                         (appé…ä¸‹ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’æŒ‡å®šã™ã‚‹ã“ã¨ã§ä½œæˆã—ãŸcomponentã‚’ç™»éŒ²å¯èƒ½)
+	 |    + -- log_*.confã€€--  log configuration (default : ./var/log)
 	 |
-	 |-- lib/   -- ODENOS‚Ìƒ‰ƒCƒuƒ‰ƒŠ(jar,python,ruby) <-buildƒtƒ@ƒCƒ‹‚ÌŠi”[
+	 |-- lib/   -- ODENOS libraries (jar,python,ruby) <-buildãƒ•ã‚¡ã‚¤ãƒ«ã®æ ¼ç´
 	 |
-	 |-- src/   -- ODENOS‚Ìƒ\[ƒX(java,python,ruby)
+	 |-- src/   -- ODENOS sources (java,python,ruby)
 	 |
 	 |-- var/
-	       +-- log  -- logŠi”[
+	       +-- log  -- log files
 
  ---------------------------------
 
- * build•û–@‚Ì•ÏX
-  mvnƒRƒ}ƒ“ƒh‚É‚Äbuild(doc/QUICKSTART.mdQÆ)
+ * build
+  Use mvn for building ODENOS (Please refer doc/QUICKSTART.md)
 
- * ‹N“®ƒXƒvƒŠƒNƒg
-  - ./odenos start ‚Å‹N“®
-  - ./odenos stop ‚ÅI—¹
-  - ./odenos restart ‚ÅÄ‹N“®‚É‚È‚è‚Ü‚·B
+ * start script
+  - ./odenos start
+  - ./odenos stop
+  - ./odenos restart
 
- * İ’èƒtƒ@ƒCƒ‹
-  ./etc/odenos.conf ‚É‹N“®‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒgƒ}ƒl[ƒWƒƒ‚ğ‹LÚ‚µ‚Ä‚­‚¾‚³‚¢B
+ * configuration file
+  ./etc/odenos.conf ã«èµ·å‹•ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ã‚’è¨˜è¼‰ã—ã¦ãã ã•ã„ã€‚
 
  ---------------------------------
-  		    [odenos.conf‚Ì‰Šúî•ñ]
+  		    [odenos.confã®åˆæœŸæƒ…å ±]
 		    PROCESS romgr1,java,apps/java/sample_components/target/classes
 		    PROCESS romgr2,python,apps/python/sample_components
 
-		    [İ’è“à—e]
+		    [è¨­å®šå†…å®¹]
 		    PROCESS %1, %2, %3
-		    %1: compoment_manager‚Ì–¼‘O(”CˆÓ‚Éİ’è‰Â”\)
-		    %2: Œ¾Œê‚ğw’è java or python (Ruby–¢‘Î‰)
-		    %3: “Æ©ì¬‚µ‚½conponent‚ÌŠi”[æ
+		    %1: compoment_managerã®åå‰(ä»»æ„ã«è¨­å®šå¯èƒ½)
+		    %2: è¨€èªã‚’æŒ‡å®š java or python (Rubyæœªå¯¾å¿œ)
+		    %3: ç‹¬è‡ªä½œæˆã—ãŸconponentã®æ ¼ç´å…ˆ
  ---------------------------------
 
 ----
-#### <a name="packege">appsŠJ”­‚ÌƒfƒBƒŒƒNƒgƒŠ\¬—á</a>
+#### <a name="packege">appsé–‹ç™ºæ™‚ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªæ§‹æˆä¾‹</a>
 
-  apps ”z‰º‚Éì¬ƒ\ƒtƒgƒEƒFƒA‚ğŠi”[‚·‚éB
-  ì¬ƒ\ƒtƒgƒEƒFƒA‚ÍAodenos/lib”z‰º‚Ìƒtƒ@ƒCƒ‹‚ğimport‚µg—p‚·‚éB(classpath‚Éw’è)
-  ¦odenos‚Íetc(configƒtƒ@ƒCƒ‹)ˆÈŠO‚ÍŠî–{“I‚É•ÏX‚·‚é‚±‚Æ‚Í‚È‚¢B
+  apps é…ä¸‹ã«ä½œæˆã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’æ ¼ç´ã™ã‚‹ã€‚
+  ä½œæˆã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ã€odenos/libé…ä¸‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’importã—ä½¿ç”¨ã™ã‚‹ã€‚(classpathã«æŒ‡å®š)
+  â€»odenosã¯etc(configãƒ•ã‚¡ã‚¤ãƒ«)ä»¥å¤–ã¯åŸºæœ¬çš„ã«å¤‰æ›´ã™ã‚‹ã“ã¨ã¯ãªã„ã€‚
 
 	|-- apps/
 	    +-- Project-A/
-	    	+--- run_splict  ÀsƒXƒvƒŠƒNƒg.ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬/connection‚È‚Ç
+	    	+--- run_splict  å®Ÿè¡Œã‚¹ãƒ—ãƒªã‚¯ãƒˆ.ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ/connectionãªã©
 		     +--- src/main/java/xxx/proj-a/
 		     |                       + component/
 		     |                          +--- ExtLinkLayerlizer.java
@@ -99,52 +99,52 @@ This document explains only development by Java, although ODENOS supports both J
 		     |                          +--- driver/
 		     |                                +------ XXXXDriver.java
 		     |                                +------ YYYYDriver.java
-		     +--- target/classes  -- classƒtƒ@ƒCƒ‹Ši”[
+		     +--- target/classes  -- classãƒ•ã‚¡ã‚¤ãƒ«æ ¼ç´
 
 ----
-#### <a name="baseclass">BaseClass‚ÌŒˆ’è</a>
+#### <a name="baseclass">BaseClassã®æ±ºå®š</a>
 
-Driver : Driver.class‚ğŒp³‚µ‚ÄÀ‘•‚·‚éB(QlFDummyDriver)    
-LogicComponent : Logic class‚ğŒp³‚µ‚ÄÀ‘•‚·‚éB(QlFAggregator)   
+Driver : Driver.classã‚’ç¶™æ‰¿ã—ã¦å®Ÿè£…ã™ã‚‹ã€‚(å‚è€ƒï¼šDummyDriver)    
+LogicComponent : Logic classã‚’ç¶™æ‰¿ã—ã¦å®Ÿè£…ã™ã‚‹ã€‚(å‚è€ƒï¼šAggregator)   
 
 ----
-#### <a name="connection">connection‚ÌÀ‘•ƒKƒCƒhƒ‰ƒCƒ“</a>
+#### <a name="connection">connectionã®å®Ÿè£…ã‚¬ã‚¤ãƒ‰ãƒ©ã‚¤ãƒ³</a>
 
-* Conponent/Driver‚Æ"Network"‚Ìconnection •Ï‰»(*)‚Ìˆ—‚ğ‹LÚ‚·‚é.
+* Conponent/Driverã¨"Network"ã®connection å¤‰åŒ–æ™‚(*)ã®å‡¦ç†ã‚’è¨˜è¼‰ã™ã‚‹.
  
-(*)POST/PUT/DELETE \<base_uri>/connections ‚ªÀ{‚³‚ê‚½‚Æ‚«.
+(*)POST/PUT/DELETE \<base_uri>/connections ãŒå®Ÿæ–½ã•ã‚ŒãŸã¨ã.
 
-"ConnectionChanged"ƒCƒxƒ“ƒg‚ªSystemManager‚æ‚èŠecomponent‚É’Ê’m‚³‚ê,Ÿ‚Ìƒƒ\ƒbƒh‚ªƒR[ƒ‹‚³‚ê‚é‚Ì‚Å©Component‚É‚Äoverride‚µ‚ÄÀ‘•‚·‚é‚±‚Æ.    
-
-method                       | Note
------------------------------|------------------------------ 
-onConnectionChangedAddedPre  | Connection‚ª’Ç‰Á‚³‚ê‚½‚Æ‚«
-onConnectionChangedUpdatePre | Connection‚ªXV‚³‚ê‚½‚Æ‚«
-onConnectionChangedDeletePre | Connection‚ªíœ‚³‚ê‚½‚Æ‚«
-
-–{ƒƒ\ƒbƒh‚É‚Ä,—v‹‚³‚ê‚½Connection‚É‘Î‚µ,©Component‚ªÚ‘±iXVAíœj‰Â”\‚©ƒ`ƒFƒbƒN‚·‚é‚±‚Æ.    
-onConnectionChanged~Pre‚ğ"true"‚Å•Ô‚·‚ÆA‰º‹Lƒƒ\ƒbƒh‚ªƒR[ƒ‹‚³‚ê‚é.    
-(false‚ğ•Ô‚µ‚½ê‡‚Í‰º‹Lƒƒ\ƒbƒh‚ÍƒR[ƒ‹‚³‚ê‚¸‚Éconnectionˆ—‚ªI—¹‚·‚é)
+"ConnectionChanged"ã‚¤ãƒ™ãƒ³ãƒˆãŒSystemManagerã‚ˆã‚Šå„componentã«é€šçŸ¥ã•ã‚Œ,æ¬¡ã®ãƒ¡ã‚½ãƒƒãƒ‰ãŒã‚³ãƒ¼ãƒ«ã•ã‚Œã‚‹ã®ã§è‡ªComponentã«ã¦overrideã—ã¦å®Ÿè£…ã™ã‚‹ã“ã¨.    
 
 method                       | Note
 -----------------------------|------------------------------ 
-onConnectionChangedAdded     | Connection‚ª’Ç‰Á‚³‚ê‚½‚Æ‚«
-onConnectionChangedUpdate    | Connection‚ªXV‚³‚ê‚½‚Æ‚«
-onConnectionChangedDelete    | Connection‚ªíœ‚³‚ê‚½‚Æ‚« 
+onConnectionChangedAddedPre  | ConnectionãŒè¿½åŠ ã•ã‚ŒãŸã¨ã
+onConnectionChangedUpdatePre | ConnectionãŒæ›´æ–°ã•ã‚ŒãŸã¨ã
+onConnectionChangedDeletePre | ConnectionãŒå‰Šé™¤ã•ã‚ŒãŸã¨ã
 
-–{ƒƒ\ƒbƒh‚Å‚Í, connection‚ÉÀ{‚·‚éˆ—‚ğ‹LÚ‚·‚é.    
-’Êí‚Í,‰º‹L[Event subscription](#subscription)ˆ—‚ğ‹LÚ‚·‚é‚±‚ğ‘z’è‚µ‚Ä‚¢‚é.    
-©Component‚É‚Äoverride‚µ‚ÄÀ‘•‚·‚é‚±‚Æ.    
+æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã«ã¦,è¦æ±‚ã•ã‚ŒãŸConnectionã«å¯¾ã—,è‡ªComponentãŒæ¥ç¶šï¼ˆæ›´æ–°ã€å‰Šé™¤ï¼‰å¯èƒ½ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã“ã¨.    
+onConnectionChanged~Preã‚’"true"ã§è¿”ã™ã¨ã€ä¸‹è¨˜ãƒ¡ã‚½ãƒƒãƒ‰ãŒã‚³ãƒ¼ãƒ«ã•ã‚Œã‚‹.    
+(falseã‚’è¿”ã—ãŸå ´åˆã¯ä¸‹è¨˜ãƒ¡ã‚½ãƒƒãƒ‰ã¯ã‚³ãƒ¼ãƒ«ã•ã‚Œãšã«connectionå‡¦ç†ãŒçµ‚äº†ã™ã‚‹)
+
+method                       | Note
+-----------------------------|------------------------------ 
+onConnectionChangedAdded     | ConnectionãŒè¿½åŠ ã•ã‚ŒãŸã¨ã
+onConnectionChangedUpdate    | ConnectionãŒæ›´æ–°ã•ã‚ŒãŸã¨ã
+onConnectionChangedDelete    | ConnectionãŒå‰Šé™¤ã•ã‚ŒãŸã¨ã 
+
+æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã§ã¯, connectionæ™‚ã«å®Ÿæ–½ã™ã‚‹å‡¦ç†ã‚’è¨˜è¼‰ã™ã‚‹.    
+é€šå¸¸ã¯,ä¸‹è¨˜[Event subscription](#subscription)å‡¦ç†ã‚’è¨˜è¼‰ã™ã‚‹ã“ã‚’æƒ³å®šã—ã¦ã„ã‚‹.    
+è‡ªComponentã«ã¦overrideã—ã¦å®Ÿè£…ã™ã‚‹ã“ã¨.    
 
     
 ----
 
-#### <a name="subscription">Event subscription‚Ìİ’èƒKƒCƒhƒ‰ƒCƒ“</a>
+#### <a name="subscription">Event subscriptionã®è¨­å®šã‚¬ã‚¤ãƒ‰ãƒ©ã‚¤ãƒ³</a>
 
-Event subscription‚Å‚ÍAóM‚·‚éƒCƒxƒ“ƒg‚ğ“o˜^‚µ‚Ü‚·B    
-netwrok‚©‚ç‚Ì’Ê’m‚ª•K—v‚ÈƒCƒxƒ“ƒg‚ğ“o˜^‚µ‚Ü‚·B
+Event subscriptionã§ã¯ã€å—ä¿¡ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã‚’ç™»éŒ²ã—ã¾ã™ã€‚    
+netwrokã‹ã‚‰ã®é€šçŸ¥ãŒå¿…è¦ãªã‚¤ãƒ™ãƒ³ãƒˆã‚’ç™»éŒ²ã—ã¾ã™ã€‚
 
-##### network‚ÌƒCƒxƒ“ƒgˆê——
+##### networkã®ã‚¤ãƒ™ãƒ³ãƒˆä¸€è¦§
 
 event            | Note
 -----------------|------------------------------ 
@@ -159,21 +159,21 @@ OUT_PACKET_ADDED | "OutPacketAdded"
 
 method                       | Note
 ---------------------|---------------
-addEntryEventSubscription | ƒCƒxƒ“ƒg’Ê’m“o˜^(add,delete) 
-updateEntryEventSubscription | ƒCƒxƒ“ƒg’Ê’m“o˜^(update)  ArrayList‚É“`”À‚·‚éattributes‚ğw’è‚·‚é(*)
-removeEventSubscription  | ƒCƒxƒ“ƒg’Ê’m‰ğœ(addEntryEventSubscription,updateEntryEventSubscription‚Å“o˜^‚µ‚½ƒCƒxƒ“ƒg‚Ì‰ğœ)
-applyEventSubscription  | “o˜^‚µ‚½ƒCƒxƒ“ƒg‚ğÀÛ‚ÉeventManager‚É”½‰f‚·‚é(~EventSubscription‚¾‚¯‚Å‚Í”½‰f‚³‚ê‚È‚¢‚Ì‚Å–{ƒƒ\ƒbƒh‚ğƒR[ƒ‹‚·‚é‚±‚Æ)
+addEntryEventSubscription | ã‚¤ãƒ™ãƒ³ãƒˆé€šçŸ¥ç™»éŒ²(add,delete) 
+updateEntryEventSubscription | ã‚¤ãƒ™ãƒ³ãƒˆé€šçŸ¥ç™»éŒ²(update)  ArrayListã«ä¼æ¬ã™ã‚‹attributesã‚’æŒ‡å®šã™ã‚‹(*)
+removeEventSubscription  | ã‚¤ãƒ™ãƒ³ãƒˆé€šçŸ¥è§£é™¤(addEntryEventSubscription,updateEntryEventSubscriptionã§ç™»éŒ²ã—ãŸã‚¤ãƒ™ãƒ³ãƒˆã®è§£é™¤)
+applyEventSubscription  | ç™»éŒ²ã—ãŸã‚¤ãƒ™ãƒ³ãƒˆã‚’å®Ÿéš›ã«eventManagerã«åæ˜ ã™ã‚‹(~EventSubscriptionã ã‘ã§ã¯åæ˜ ã•ã‚Œãªã„ã®ã§æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚³ãƒ¼ãƒ«ã™ã‚‹ã“ã¨)
 
-ƒCƒxƒ“ƒg‚ÌAction‚Æ‚µ‚Ä "add","update","delete"‚ª‚ ‚éB
-\<nwcId>‚Énetwork ‚Ìid‚ğw’è‚·‚éi’Êí‚Íconnection‚Ìnetwork_id‚Æ‚È‚éj
+ã‚¤ãƒ™ãƒ³ãƒˆã®Actionã¨ã—ã¦ "add","update","delete"ãŒã‚ã‚‹ã€‚
+\<nwcId>ã«network ã®idã‚’æŒ‡å®šã™ã‚‹ï¼ˆé€šå¸¸ã¯connectionã®network_idã¨ãªã‚‹ï¼‰
 
-(*)Œãq‚ÌconversionTable‹@”\‚ğg—p‚·‚éê‡‚ÍA‚±‚Åw’è‚µ‚½attributes‚ªXV‘ÎÛ‚Æ‚È‚é,DriverŠJ”­‚È‚ÇconversionTable‹@”\‚ğg—p‚µ‚È‚¢ê‡‚Ínull‚ğw’èB
+(*)å¾Œè¿°ã®conversionTableæ©Ÿèƒ½ã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã¯ã€ã“ã§æŒ‡å®šã—ãŸattributesãŒæ›´æ–°å¯¾è±¡ã¨ãªã‚‹,Driveré–‹ç™ºãªã©conversionTableæ©Ÿèƒ½ã‚’ä½¿ç”¨ã—ãªã„å ´åˆã¯nullã‚’æŒ‡å®šã€‚
 
 ----
-#### <a name="event">Event‚ÌÀ‘•ƒKƒCƒhƒ‰ƒCƒ“</a>
+#### <a name="event">Eventã®å®Ÿè£…ã‚¬ã‚¤ãƒ‰ãƒ©ã‚¤ãƒ³</a>
 
-@network‚Ìtopology,flow,packet‚ªXV‚³‚ê‚é‚ÆAƒCƒxƒ“ƒg‚ª’Ê’m‚³‚ê‚éB
-  ˆ—‚ª•K—v‚Èƒƒ\ƒbƒh‚ğoverride‚µ‚Äˆ—‚ğ‹Lq‚·‚é‚±‚ÆB
+ã€€networkã®topology,flow,packetãŒæ›´æ–°ã•ã‚Œã‚‹ã¨ã€ã‚¤ãƒ™ãƒ³ãƒˆãŒé€šçŸ¥ã•ã‚Œã‚‹ã€‚
+  å‡¦ç†ãŒå¿…è¦ãªãƒ¡ã‚½ãƒƒãƒ‰ã‚’overrideã—ã¦å‡¦ç†ã‚’è¨˜è¿°ã™ã‚‹ã“ã¨ã€‚
 
 * Topology
 
@@ -186,83 +186,83 @@ Flow      | onFlowAdded      | onFlowUpdate | onFlowDelete
 InPacket  | onInPacketadded  | -            | -
 OutPacket | onOutPacketadded | -            | -
 
- Œãq‚ÌconversionTable‹@”\‚ğg—p‚·‚éê‡‚ÍAoverride‚·‚éƒƒ\ƒbƒh‚ª’Ç‰Á‚³‚ê‚é‚Ì‚Å‚»‚¿‚ç‚àQÆ‚·‚é‚±‚ÆB
+ å¾Œè¿°ã®conversionTableæ©Ÿèƒ½ã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã¯ã€overrideã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ãŒè¿½åŠ ã•ã‚Œã‚‹ã®ã§ãã¡ã‚‰ã‚‚å‚ç…§ã™ã‚‹ã“ã¨ã€‚
 
 ----
 
 
-#### <a name="conversionTable">conversionTable‚Ìİ’èƒKƒCƒhƒ‰ƒCƒ“</a>
+#### <a name="conversionTable">conversionTableã®è¨­å®šã‚¬ã‚¤ãƒ‰ãƒ©ã‚¤ãƒ³</a>
 
-conversionTable‚Étopology,flowŠÖ˜A‚ğ“o˜^‚µ‚Ä‚¨‚­‚Æ,
-networkŠÔ‚Ìtopology,flow‚ÌXV‚ğƒx[ƒXƒNƒ‰ƒX‚ÌLogic“à‚Åƒ‹[ƒ‹‚É]‚Á‚Ä©“®‚Ås‚¤B
-(‘Oq‚ÌConversion ƒƒ\ƒbƒh‚É‚æ‚Á‚Ä“®ì‚·‚é)
+conversionTableã«topology,flowé–¢é€£ã‚’ç™»éŒ²ã—ã¦ãŠãã¨,
+networké–“ã®topology,flowã®æ›´æ–°ã‚’ãƒ™ãƒ¼ã‚¹ã‚¯ãƒ©ã‚¹ã®Logicå†…ã§ãƒ«ãƒ¼ãƒ«ã«å¾“ã£ã¦è‡ªå‹•ã§è¡Œã†ã€‚
+(å‰è¿°ã®Conversion ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã£ã¦å‹•ä½œã™ã‚‹)
 
-Slicer,Fedeletor‚È‚Ç‚ÅAnetworkŠÔ‚Å‚Ìtopology,flow‚ÌXVˆ—‚ÌÀ‘•‚ğŒyŒ¸‚·‚é‚½‚ß‚Ì‹@”\‚Å‚ ‚éB
-•¡”‚ÌNetwork‚ÆÚ‘±‚ª‚È‚¢Component‚Å‚Í–{‹@”\‚ÌŒø‰Ê‚Í–³‚¢.(DriverALerningSwitch‚È‚Ç..)
+Slicer,Fedeletorãªã©ã§ã€networké–“ã§ã®topology,flowã®æ›´æ–°å‡¦ç†ã®å®Ÿè£…ã‚’è»½æ¸›ã™ã‚‹ãŸã‚ã®æ©Ÿèƒ½ã§ã‚ã‚‹ã€‚
+è¤‡æ•°ã®Networkã¨æ¥ç¶šãŒãªã„Componentã§ã¯æœ¬æ©Ÿèƒ½ã®åŠ¹æœã¯ç„¡ã„.(Driverã€LerningSwitchãªã©..)
 
   [network1] ---  [LogicConponent] --- [network2]    
 
-onConnectionChangedAdded‚É‚ÄAnetworkŠÔ‚ÌŠÖ˜A•t‚¯‚ğs‚¤B
-ã‹LA[network1] ‚Æ [network2] ‚ªŠÖ˜A•t‚¯‚ç‚ê‚é‚ÆAˆê•ûnetwork‚Åtopology,flow‚É•Ï‰»‚ª‚ ‚Á‚½‚É
-‘¼•û‚Ìnetwork‚Ö‚Ì”½‰f‚ğ—eˆÕ‚És‚¤‚±‚Æ‚ª‚Å‚«‚éB
+onConnectionChangedAddedã«ã¦ã€networké–“ã®é–¢é€£ä»˜ã‘ã‚’è¡Œã†ã€‚
+ä¸Šè¨˜ã€[network1] ã¨ [network2] ãŒé–¢é€£ä»˜ã‘ã‚‰ã‚Œã‚‹ã¨ã€ä¸€æ–¹networkã§topology,flowã«å¤‰åŒ–ãŒã‚ã£ãŸæ™‚ã«
+ä»–æ–¹ã®networkã¸ã®åæ˜ ã‚’å®¹æ˜“ã«è¡Œã†ã“ã¨ãŒã§ãã‚‹ã€‚
 
-* ŠÖ˜A«‚ğİ’è‚·‚éƒƒ\ƒbƒhŒQ
+* é–¢é€£æ€§ã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ç¾¤
 
-method                         | Note                       |  ƒR[ƒ‹ƒ^ƒCƒ~ƒ“ƒO
+method                         | Note                       |  ã‚³ãƒ¼ãƒ«ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 -----------------------|---------------|-----------------
-addEntryConnectionType   | Network ‚Ì ConnectionType‚Ì“o˜^ \<id>‚Énetwork‚Ìid‚ğw’èB \<type>‚Éconnection_type‚ğw’èB | onConnectionChangedAdded
-addEntryNetwork               | network‚ÌŠÖ˜A•t‚¯  | onConnectionChangedAdded
-addEntryNode                 | node‚ğŠÖ˜A•t‚¯      | onNodeAdded(*)
-addEntryPort                  | port‚ÌŠÖ˜A•t‚¯       | onPortAdded(*)
-addEntryLink                  | Link‚ÌŠÖ˜A•t‚¯      | onLinkAdded(*)
-addEntryFlow                 | ‚e‚Œ‚‚—‚ÌŠÖ˜A•t‚¯     | onFlowAdded(*)
+addEntryConnectionType   | Network ã® ConnectionTypeã®ç™»éŒ² \<id>ã«networkã®idã‚’æŒ‡å®šã€‚ \<type>ã«connection_typeã‚’æŒ‡å®šã€‚ | onConnectionChangedAdded
+addEntryNetwork               | networkã®é–¢é€£ä»˜ã‘  | onConnectionChangedAdded
+addEntryNode                 | nodeã‚’é–¢é€£ä»˜ã‘      | onNodeAdded(*)
+addEntryPort                  | portã®é–¢é€£ä»˜ã‘       | onPortAdded(*)
+addEntryLink                  | Linkã®é–¢é€£ä»˜ã‘      | onLinkAdded(*)
+addEntryFlow                 | ï¼¦ï½Œï½ï½—ã®é–¢é€£ä»˜ã‘     | onFlowAdded(*)
 
-* ŠÖ˜A«‚ğíœ‚·‚éƒƒ\ƒbƒhŒQ
+* é–¢é€£æ€§ã‚’å‰Šé™¤ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ç¾¤
 
-method                         | Note                         |  ƒR[ƒ‹ƒ^ƒCƒ~ƒ“ƒO
+method                         | Note                         |  ã‚³ãƒ¼ãƒ«ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 -----------------------|----------------------|-----------------
-delEntryConnectionType  | Network ‚Ì ConnectionType‚Ìíœ   |  onConnectionChangedDelete
-delEntryNetwork                | network‚ÌŠÖ˜A•t‚¯‚ğíœ               | onConnectionChangedDelete
-delEntryNode                 | node‚ğŠÖ˜A•t‚¯‚ğíœ                   | onNodeDelete(*)
-delEntryPort                  | port‚ÌŠÖ˜A•t‚¯‚ğíœ                    | onPortDelete(*)
-delEntryLink                  | Link‚ÌŠÖ˜A•t‚¯‚ğíœ                    | onLinkDelete(*)
-delEntryFlow                 | ‚e‚Œ‚‚—‚ÌŠÖ˜A•t‚¯‚ğíœ                   | onFlowDelete(*)
+delEntryConnectionType  | Network ã® ConnectionTypeã®å‰Šé™¤   |  onConnectionChangedDelete
+delEntryNetwork                | networkã®é–¢é€£ä»˜ã‘ã‚’å‰Šé™¤               | onConnectionChangedDelete
+delEntryNode                 | nodeã‚’é–¢é€£ä»˜ã‘ã‚’å‰Šé™¤                   | onNodeDelete(*)
+delEntryPort                  | portã®é–¢é€£ä»˜ã‘ã‚’å‰Šé™¤                    | onPortDelete(*)
+delEntryLink                  | Linkã®é–¢é€£ä»˜ã‘ã‚’å‰Šé™¤                    | onLinkDelete(*)
+delEntryFlow                 | ï¼¦ï½Œï½ï½—ã®é–¢é€£ä»˜ã‘ã‚’å‰Šé™¤                   | onFlowDelete(*)
 
  
-(*) Logic.java“à‚ÅaddEntry~ , delEntry~ ‚ğƒR[ƒ‹‚µ‚ÄŠÖ˜A•t‚¯‚ğs‚Á‚Ä‚¢‚éB
-ŠY“–ƒƒ\ƒbƒh‚ğoverride‚·‚éê‡‚Í–{ˆ—‚à‡‚í‚¹‚ÄÀ‘•‚·‚é•K—v‚ª‚ ‚éB
+(*) Logic.javaå†…ã§addEntry~ , delEntry~ ã‚’ã‚³ãƒ¼ãƒ«ã—ã¦é–¢é€£ä»˜ã‘ã‚’è¡Œã£ã¦ã„ã‚‹ã€‚
+è©²å½“ãƒ¡ã‚½ãƒƒãƒ‰ã‚’overrideã™ã‚‹å ´åˆã¯æœ¬å‡¦ç†ã‚‚åˆã‚ã›ã¦å®Ÿè£…ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
 
 ----
-#### <a name="Event2">conversionTable‚Ìİ’è‚ÌEvent‚ÌÀ‘•ƒKƒCƒhƒ‰ƒCƒ“</a>
+#### <a name="Event2">conversionTableã®è¨­å®šæ™‚ã®Eventã®å®Ÿè£…ã‚¬ã‚¤ãƒ‰ãƒ©ã‚¤ãƒ³</a>
 
-##### Eventˆ—‚Ì—¬‚êiNode‚Ì—áj
+##### Eventå‡¦ç†ã®æµã‚Œï¼ˆNodeã®ä¾‹ï¼‰
 
 ----
   
-    Event”­¶(NodeChanged ƒCƒxƒ“ƒg”­s) [Network]
-     +--> [Subscribe]‚µ‚Ä‚¢‚é[LogicComponent]    
-               +---> onNodeAdded   <--------------------------- 1. override‚µ‚ÄƒCƒxƒ“ƒgˆ—‚ğ‹Lq
-                       |onNodeAddedPre  | <--- ‘Oˆ— <--- 2. override‚µ‚ÄƒCƒxƒ“ƒgˆ—‚ğ‹Lq
-                       | Conversion     | <--- ConversionTable‚É]‚Á‚Ä“®ì(class Logic“à‚Åˆ—)
-                       |onNodeAddedPost | <--- Œãˆ— <--- 3. override‚µ‚ÄƒCƒxƒ“ƒgˆ—‚ğ‹Lq
+    Eventç™ºç”Ÿ(NodeChanged ã‚¤ãƒ™ãƒ³ãƒˆç™ºè¡Œ) [Network]
+     +--> [Subscribe]ã—ã¦ã„ã‚‹[LogicComponent]    
+               +---> onNodeAdded   <--------------------------- 1. overrideã—ã¦ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¨˜è¿°
+                       |onNodeAddedPre  | <--- å‰å‡¦ç† <--- 2. overrideã—ã¦ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¨˜è¿°
+                       | Conversion     | <--- ConversionTableã«å¾“ã£ã¦å‹•ä½œ(class Logicå†…ã§å‡¦ç†)
+                       |onNodeAddedPost | <--- å¾Œå‡¦ç† <--- 3. overrideã—ã¦ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¨˜è¿°
   
 
 ----
 
-ã‹Lƒƒ\ƒbƒh‚ğƒI[ƒoƒ‰ƒCƒh‚µ‚È‚¢‚ÆAconversionTable‚Å‹LÚ‚µ‚½ŠÖ˜A«‚ÅƒIƒuƒWƒFƒNƒg‚ÌXV‚ğlogic“à‚Ås‚¤B
-Node‚Ì’Ç‰ÁAXVAíœ‚ªlogic‚ÌConversion()‚É‚æ‚Á‚Äs‚í‚ê‚éB
+ä¸Šè¨˜ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚ªãƒ¼ãƒãƒ©ã‚¤ãƒ‰ã—ãªã„ã¨ã€conversionTableã§è¨˜è¼‰ã—ãŸé–¢é€£æ€§ã§ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ›´æ–°ã‚’logicå†…ã§è¡Œã†ã€‚
+Nodeã®è¿½åŠ ã€æ›´æ–°ã€å‰Šé™¤ãŒlogicã®Conversion()ã«ã‚ˆã£ã¦è¡Œã‚ã‚Œã‚‹ã€‚
 
- 1. onNodeAdded : ƒCƒxƒ“ƒgˆ—‚ğ‘S‚Ä‹Lq‚·‚éê‡‚Í–{ƒƒ\ƒbƒh‚ğoverride‚·‚éB
- 2. onNodeAddedPreˆ—‚É‚ÄƒtƒBƒ‹ƒ^ƒŠƒ“ƒO‚ª‰Â”\i“`”À‚µ‚½‚­‚È‚¢ƒCƒxƒ“ƒg‚ğ‚±‚Ìˆ—‚Å—‚Æ‚·j–{ƒƒ\ƒbƒh‚ğoverride‚µ‚Ä"false"‚ğ•Ô‚·‚ÆˆÈ~‚Ìˆ—‚ğs‚í‚È‚¢B
- 3. onNodeAddedPost‚É‚ÄŒãˆ—‚ğÀ{BConversion‚Ìrequest‚É‘Î‚·‚éResponse‚ªƒpƒ‰ƒ[ƒ^respList‚ÉŠi”[‚³‚ê‚Ä‚¢‚éBResponse‚ğƒ`ƒFƒbƒN‚µ‚ÄƒGƒ‰[ˆ—‚È‚Ç‚ğs‚¤B
+ 1. onNodeAdded : ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’å…¨ã¦è¨˜è¿°ã™ã‚‹å ´åˆã¯æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã‚’overrideã™ã‚‹ã€‚
+ 2. onNodeAddedPreå‡¦ç†ã«ã¦ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°ãŒå¯èƒ½ï¼ˆä¼æ¬ã—ãŸããªã„ã‚¤ãƒ™ãƒ³ãƒˆã‚’ã“ã®å‡¦ç†ã§è½ã¨ã™ï¼‰æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã‚’overrideã—ã¦"false"ã‚’è¿”ã™ã¨ä»¥é™ã®å‡¦ç†ã‚’è¡Œã‚ãªã„ã€‚
+ 3. onNodeAddedPostã«ã¦å¾Œå‡¦ç†ã‚’å®Ÿæ–½ã€‚Conversionã®requestã«å¯¾ã™ã‚‹ResponseãŒãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿respListã«æ ¼ç´ã•ã‚Œã¦ã„ã‚‹ã€‚Responseã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦ã‚¨ãƒ©ãƒ¼å‡¦ç†ãªã©ã‚’è¡Œã†ã€‚
 
   
 Tips:
-ˆÓ}“I‚ÉƒCƒxƒ“ƒg‚ğ—‚Æ‚µ‚½‚¢‚Æ‚«‚ÍAonNodeAddedPre‚Å"False"‚ğ•Ô‚·‚æ‚¤‚ÉÀ‘•‚·‚éB
-’Pƒ‚ÈƒRƒs[‚Å‚Í‚È‚­ALogicComponent“Á—L‚Ìˆ—‚ğs‚¤ê‡‚ÍAonNodeAdded‚ğƒI[ƒoƒ‰ƒCƒh‚·‚é‚±‚Æi‚»‚Ìê‡‚ÍAonNodeAddedPre‚ÍƒR[ƒ‹‚³‚ê‚È‚¢j
-ConversionŒã‚Éˆ—‚ğs‚¢‚½‚¢ê‡‚ÍAonNodeAddedPost‚ğƒI[ƒoƒ‰ƒCƒh‚·‚é‚±‚ÆB
-ˆø” respList‚ÉResponseƒR[ƒh‚ªŠi”[‚³‚ê‚Ä‚¢‚éB
-iƒGƒ‰[ƒ`ƒFƒbƒN‚È‚Ç‚Ég‚í‚ê‚é‚±‚Æ‚ğ‘z’èj
+æ„å›³çš„ã«ã‚¤ãƒ™ãƒ³ãƒˆã‚’è½ã¨ã—ãŸã„ã¨ãã¯ã€onNodeAddedPreã§"False"ã‚’è¿”ã™ã‚ˆã†ã«å®Ÿè£…ã™ã‚‹ã€‚
+å˜ç´”ãªã‚³ãƒ”ãƒ¼ã§ã¯ãªãã€LogicComponentç‰¹æœ‰ã®å‡¦ç†ã‚’è¡Œã†å ´åˆã¯ã€onNodeAddedã‚’ã‚ªãƒ¼ãƒãƒ©ã‚¤ãƒ‰ã™ã‚‹ã“ã¨ï¼ˆãã®å ´åˆã¯ã€onNodeAddedPreã¯ã‚³ãƒ¼ãƒ«ã•ã‚Œãªã„ï¼‰
+Conversionå¾Œã«å‡¦ç†ã‚’è¡Œã„ãŸã„å ´åˆã¯ã€onNodeAddedPostã‚’ã‚ªãƒ¼ãƒãƒ©ã‚¤ãƒ‰ã™ã‚‹ã“ã¨ã€‚
+å¼•æ•° respListã«Responseã‚³ãƒ¼ãƒ‰ãŒæ ¼ç´ã•ã‚Œã¦ã„ã‚‹ã€‚
+ï¼ˆã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ãªã©ã«ä½¿ã‚ã‚Œã‚‹ã“ã¨ã‚’æƒ³å®šï¼‰
 
 
 
@@ -274,38 +274,38 @@ ConversionŒã‚Éˆ—‚ğs‚¢‚½‚¢ê‡‚ÍAonNodeAddedPost‚ğƒI[ƒoƒ‰ƒCƒh‚·‚é‚±‚ÆB
 2  | onNodeAddedPre | onNodeUpdatePre  | onNodeDeletePre
 3  | onNodeAddedPost| onNodeUpdatePost | onNodeDeletePost
 
- - Port,Link,Flow‚à‘Š“–‚Ìƒƒ\ƒbƒh‚ ‚è
- - onInPacket,onOutPacket‚Íadded‚Ì‚İ
+ - Port,Link,Flowã‚‚ç›¸å½“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚ã‚Š
+ - onInPacket,onOutPacketã¯addedã®ã¿
 
 ----
 
-#### Request‚ÌÀ‘•ƒKƒCƒhƒ‰ƒCƒ“
+#### Requestã®å®Ÿè£…ã‚¬ã‚¤ãƒ‰ãƒ©ã‚¤ãƒ³
 
-Conponent/Driver‚É“Æ©‚ÌREST IF‚ğ’Ç‰Á‚·‚éê‡‚ÌÀ‘••û–@‚Å‚·B
+Conponent/Driverã«ç‹¬è‡ªã®REST IFã‚’è¿½åŠ ã™ã‚‹å ´åˆã®å®Ÿè£…æ–¹æ³•ã§ã™ã€‚
 
-‹ï‘Ì“I‚ÈÀ‘•‚ÍAggregator,LearningSwitch‚È‚Ç‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+å…·ä½“çš„ãªå®Ÿè£…ã¯Aggregator,LearningSwitchãªã©ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
-<•K—v‚Èˆ—>    
+<å¿…è¦ãªå‡¦ç†>    
 
- 1. ƒNƒ‰ƒX•Ï”‚Æ‚µ‚Ä ‰º‹Lparser‚ğ’è‹`  
+ 1. ã‚¯ãƒ©ã‚¹å¤‰æ•°ã¨ã—ã¦ ä¸‹è¨˜parserã‚’å®šç¾©  
    protected final RequestParser<IActionCallback> parser;    
 
- 2. ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚É‚Äparser‚ğ‰Šú‰»    
+ 2. ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã«ã¦parserã‚’åˆæœŸåŒ–    
         parser = createParser();   
     
- 3. createParserƒƒ\ƒbƒh‚ÉRequestˆ—‚ğ‹LÚ‚·‚éB    
-@@A. B. C. ‚É‚Â‚¢‚Ä•K—v•ª‹LÚ‚·‚éB
+ 3. createParserãƒ¡ã‚½ãƒƒãƒ‰ã«Requestå‡¦ç†ã‚’è¨˜è¼‰ã™ã‚‹ã€‚    
+ã€€ã€€A. B. C. ã«ã¤ã„ã¦å¿…è¦åˆ†è¨˜è¼‰ã™ã‚‹ã€‚
 
         private RequestParser<IActionCallback> createParser() {
           return new RequestParser<IActionCallback>() { {
-            addRule(Method.GET, @<---A. Actin‚Ìw’è(GET,POST,PUT,DELETE)
-                    "fdb",        <---B. path‚Ìw’è 
+            addRule(Method.GET, ã€€<---A. Actinã®æŒ‡å®š(GET,POST,PUT,DELETE)
+                    "fdb",        <---B. pathã®æŒ‡å®š 
                     new IActionCallback() {    
                     @Override    
                     public Response process(
                       final RequestParser<IActionCallback>.
                       ParsedRequest parsed) throws Exception {
-                        return getFdb(); <---C. Àˆ—‚ğs‚¤ƒƒ\ƒbƒh‚Ì‹Lq
+                        return getFdb(); <---C. å®Ÿå‡¦ç†ã‚’è¡Œã†ãƒ¡ã‚½ãƒƒãƒ‰ã®è¨˜è¿°
                       }
                    });
             }};
@@ -313,8 +313,8 @@ Conponent/Driver‚É“Æ©‚ÌREST IF‚ğ’Ç‰Á‚·‚éê‡‚ÌÀ‘••û–@‚Å‚·B
     
 
 
- 4. onRequestƒƒ\ƒbƒh‚ğoverride‚·‚éB    
-@@3 ‚Ìƒƒ\ƒbƒh‚ğƒR[ƒ‹‚·‚é
+ 4. onRequestãƒ¡ã‚½ãƒƒãƒ‰ã‚’overrideã™ã‚‹ã€‚    
+ã€€ã€€3 ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚³ãƒ¼ãƒ«ã™ã‚‹
 
 ----
 
